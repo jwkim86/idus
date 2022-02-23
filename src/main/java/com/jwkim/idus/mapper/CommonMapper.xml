@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.koreaap.kaphome.publicPage.cm.CommonMapper">
+
+	<select id="selectDate" resultType="hashmap">
+SELECT TODAY=CONVERT(VARCHAR, GETDATE(), 23)  /* 현재일 */
+      ,PREV_WORK_DAY=CONVERT(VARCHAR, BPODB.DBO.FNPREVWORKDAY(CONVERT(VARCHAR, GETDATE(), 112)), 23)  /* 이전 영업일 */
+	</select>
+	
+	<select id="selectMsb" resultType="hashmap">
+USP_WBPO_KR_PRENOTICE_MATRIX
+	</select>
+	
+	<select id="selectBondYield" resultType="hashmap">
+USP_WBPO_KR_PRENOTICE_BOND_YIELD
+	</select>
+</mapper>
+
