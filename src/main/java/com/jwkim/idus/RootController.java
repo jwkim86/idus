@@ -9,14 +9,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.jwkim.idus.dao.Order;
-import com.jwkim.idus.dao.User;
-import com.jwkim.idus.mapper.CommonMapper;
+import com.jwkim.idus.dto.Order;
+import com.jwkim.idus.dto.User;
+import com.jwkim.idus.mapper.readApi.ReadApiMapper;
 import com.jwkim.idus.service.CommonService;
 
 @RestController
@@ -27,14 +25,22 @@ public class RootController {
 	CommonService service;
 
 	@Autowired
-	CommonMapper mapper;
+	ReadApiMapper mapper;
+	
+	
+	@GetMapping("/")
+	public String baseDir() {
+		
+		
+		return "Hello idus!!";
+    }
 		
 	// 회원 가입
-	@PostMapping("/user")
-	public boolean insertUser(HttpServletRequest request, @RequestParam User user) {
+	@PostMapping("/user/{id}")
+	public boolean insertUser(HttpServletRequest request, @PathVariable String id, @RequestParam User user) {
 		
-		service.insertUser(user);
-		
+		user.setUser_id(id);		
+		service.insertUser(user);		
 		return true;
     }
 	
