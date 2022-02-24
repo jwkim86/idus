@@ -1,13 +1,4 @@
-- 회원 가입 : 									post /user/{id}
-- 회원 로그인(인증) : 							post /login
-- 회원 로그아웃 : 								post /logout
-
-- 단일 회원 상세 정보 조회 : 						get /user/{id}
-- 단일 회원의 주문 목록 조회 : 					get /user/{id}/order
-- 여러 회원 목록 조회 : 							get /user ?start= ,pageSize=, name= ,email=
-    - 페이지네이션으로 일정 단위로 조회합니다.			
-    - 이름, 이메일을 이용하여 검색 기능이 필요합니다.	
-    - 각 회원의 마지막 주문 정보			
-
-
-http://localhost:8080/swagger-ui.html
+1. 최초 로그인을 위해 tableCreateScript.sql를 실행해 주세요. 
+   스크립트에 최초 로그인 ID가 들어있습니다.
+2. http://localhost:8080/ 로 접속한후 로그인 합니다. id: admin, pw: test1314
+3. 로그인 성공시 swagger-ui가 뜹니다.

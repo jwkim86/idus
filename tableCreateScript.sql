@@ -18,9 +18,9 @@ create table order_list (
 	FOREIGN KEY (user_id)
     REFERENCES user_list (user_id) ON update CASCADE ON delete CASCADE
 )
+;
 
-
--- admin user insert. id: admin pw: test1314
+-- admin user insert. id: admin, pw: test1314
 insert into user_list (
 	user_id,
 	user_name,
@@ -38,5 +38,4 @@ insert into user_list (
 	'a23323@idus.com',
 	'M'
 )
-;
 ;
