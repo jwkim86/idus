@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.jwkim.idus.mapper.readApi.ReadApiMapper">
+
+	<select id="findUserPasswd" parameterType="hashmap" resultType="hashmap">
+		select user_id,
+			passwd
+		from user_list
+		where user_id = #{user_id}
+	</select>
+
+	<select id="findUser" parameterType="hashmap" resultType="com.jwkim.idus.dto.User">
+		-- user detail
+		select user_id,
+		    user_name,
+			user_alias,
+			phone_no,
+			email_addr,
+			sex
+		from user_list
+		where user_id = #{user_id}
+	</select>
+	
+	<select id="findUserOrderList" parameterType="hashmap" resultType="com.jwkim.idus.dto.Order">
+		-- order list with specific user
+		select order_no,
+			product_name,
+			order_date
+		from order_list
+		where user_id = #{user_id}
+		order by order_date desc
+	</select>
+	
+	<select id="findUserList" parameterType="hashmap" resultType="com.jwkim.idus.dto.User">
+		-- user list with last order
+		select ul.user_id,
+		    ul.user_name,
+			ul.user_alias,
+			ul.phone_no,
+			ul.email_addr,
+			ul.sex,
+			ol.order_no last_order_no
+		from user_list ul
+		left outer join (
+			-- last order
+			select user_id
+				, order_no
+			from order_list
+			where (user_id, order_date) = (
+				select user_id
+					,max(order_date)
+				from order_list
+				group by user_id
+				)
+		) ol
+		on ul.user_id = ol.user_id
+		where 1=1
+		<if test="user_name != null">
+		and ul.user_name like concat('%',#{user_name},'%')
+		</if>
+		<if test="email_addr != null">		
+		and ul.email_addr like concat('%',#{email_addr},'%')
+		</if>
+		order by ul.user_name
+		<choose>
+			<when test='start != null and page_size != null'>   				
+				limit ${start}, ${page_size}
+		    </when>
+		    <otherwise>
+		    	limit 0, 10
+		    </otherwise>
+	  	</choose>
+	</select>
+</mapper>
+
