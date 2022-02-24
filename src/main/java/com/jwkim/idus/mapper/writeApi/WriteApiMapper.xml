@@ -2,6 +2,24 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.jwkim.idus.mapper.writeApi.WriteApiMapper">
-
+	<insert id="insertUser" parameterType="com.jwkim.idus.dto.User" >
+		insert into user_list (
+			user_id,
+			user_name,
+			user_alias,
+			passwd,
+			phone_no,
+			email_addr,
+			sex
+		) values (
+			#{user_id},
+			#{user_name},
+			#{user_alias},
+			#{passwd},
+			#{phone_no},
+			#{email_addr},
+			#{sex}
+		)
+  	</insert>
 </mapper>
 

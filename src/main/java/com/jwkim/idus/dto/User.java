@@ -4,12 +4,12 @@ public class User {
 	
 	String user_id;
 	String user_name;
+	String passwd;
 	String user_alias;
 	String phone_no;
 	String email_addr;
 	char sex;
 	long last_order_no;
-	
 	public String getUser_id() {
 		return user_id;
 	}
@@ -21,6 +21,12 @@ public class User {
 	}
 	public void setUser_name(String user_name) {
 		this.user_name = user_name;
+	}
+	public String getPasswd() {
+		return passwd;
+	}
+	public void setPasswd(String passwd) {
+		this.passwd = passwd;
 	}
 	public String getUser_alias() {
 		return user_alias;
@@ -52,4 +58,6 @@ public class User {
 	public void setLast_order_no(long last_order_no) {
 		this.last_order_no = last_order_no;
 	}
+	
+	
 }

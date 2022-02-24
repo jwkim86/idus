@@ -31,7 +31,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 				.loginProcessingUrl("/login").permitAll() // 로그인 요청 url
 				.and()
 			.logout()
-				.logoutUrl("/logout").permitAll();
+				.logoutUrl("/logout").permitAll()
+				.and()
+			.csrf().disable(); // post용 csrf 필터 비활성화
 	}
 	
 	@Autowired
