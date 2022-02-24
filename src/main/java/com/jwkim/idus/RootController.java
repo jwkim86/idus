@@ -17,6 +17,8 @@ import com.jwkim.idus.dto.User;
 import com.jwkim.idus.mapper.readApi.ReadApiMapper;
 import com.jwkim.idus.service.CommonService;
 
+import io.swagger.annotations.ApiOperation;
+
 @RestController
 public class RootController {
 	
@@ -28,14 +30,15 @@ public class RootController {
 	ReadApiMapper mapper;
 	
 	
-	@GetMapping("/")
-	public String baseDir() {
+//	@GetMapping("/")
+//	public String baseDir() {
+//		
+//		
+//		return "Hello idus!!";
+//    }
 		
-		
-		return "Hello idus!!";
-    }
-		
-	// 회원 가입
+	
+	@ApiOperation(value="회원 가입")
 	@PostMapping("/user/{id}")
 	public boolean insertUser(HttpServletRequest request, @PathVariable String id, @RequestParam User user) {
 		
@@ -44,19 +47,22 @@ public class RootController {
 		return true;
     }
 	
-	// 회원 조회 
+	@ApiOperation(value="단일 회원 상세 정보 조회")
 	@GetMapping("/user/{id}")
 	public User findUser(@PathVariable String id) {
 		return mapper.findUser(id);
 	}
 	
-	// 회원 주문 조회
+	@ApiOperation(value="단일 회원의 주문 목록 조회")
 	@GetMapping("/user/{id}/order")
 	public List<Order> findUserOrderList(@PathVariable String id) {
 		return mapper.findUserOrderList(id);
 	}
 	
 	// 회원 목록 조회
+	@ApiOperation(value="여러 회원 목록 조회", notes="\t- 페이지네이션으로 10건 단위로 조회합니다.\r\n" + 
+			"\t- 이름, 이메일을 이용하여 검색이 가능합니다.\r\n" + 
+			"\t- 각 회원의 마지막 주문 정보를 포함합니다.")
 	@GetMapping("/user")
 	public List<User> findUserList(@RequestParam Map<String, Object> params) {
 		return mapper.findUserList(params);
