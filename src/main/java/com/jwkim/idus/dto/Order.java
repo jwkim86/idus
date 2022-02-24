@@ -2,14 +2,15 @@ package com.jwkim.idus.dto;
 
 public class Order {
 	
-	long order_no;
+	Long order_no;
 	String product_name;
 	String order_date;
 	
-	public long getOrder_no() {
+	
+	public Long getOrder_no() {
 		return order_no;
 	}
-	public void setOrder_no(long order_no) {
+	public void setOrder_no(Long order_no) {
 		this.order_no = order_no;
 	}
 	public String getProduct_name() {

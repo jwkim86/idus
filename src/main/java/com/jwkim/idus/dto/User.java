@@ -8,8 +8,8 @@ public class User {
 	String user_alias;
 	String phone_no;
 	String email_addr;
-	char sex;
-	long last_order_no;
+	String sex;
+	Long last_order_no;
 	public String getUser_id() {
 		return user_id;
 	}
@@ -45,17 +45,17 @@ public class User {
 	}
 	public void setEmail_addr(String email_addr) {
 		this.email_addr = email_addr;
-	}
-	public char getSex() {
+	}	
+	public String getSex() {
 		return sex;
 	}
-	public void setSex(char sex) {
+	public void setSex(String sex) {
 		this.sex = sex;
 	}
-	public long getLast_order_no() {
+	public Long getLast_order_no() {
 		return last_order_no;
 	}
-	public void setLast_order_no(long last_order_no) {
+	public void setLast_order_no(Long last_order_no) {
 		this.last_order_no = last_order_no;
 	}
 	

@@ -1,5 +1,6 @@
 package com.jwkim.idus;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -50,6 +51,14 @@ public class RootController {
 			notes=
 			"- 경로 변수로 주어진 사용자를 추가(회원 가입)합니다.\r\n" +
 			"- 사용자 정보는 request body에 json 형태로 담아야 합니다.")
+	@ApiImplicitParam(
+            name = "id"
+            , value = "아이디"
+            , required = true
+            , dataType = "String"
+            , paramType = "path"
+            , defaultValue = ""
+        )
 	@PostMapping("/user/{id}")
 	public boolean insertUser(HttpServletRequest request, @PathVariable String id, @RequestBody User user) {
 		
@@ -61,6 +70,14 @@ public class RootController {
 	@ApiOperation(
 			value="단일 회원 상세 정보 조회",
 			notes="경로 변수로 주어진 사용자 정보를 조회합니다.")
+	@ApiImplicitParam(
+            name = "id"
+            , value = "아이디"
+            , required = true
+            , dataType = "String"
+            , paramType = "path"
+            , defaultValue = ""
+        )
 	@GetMapping("/user/{id}")
 	public User findUser(@PathVariable String id) {
 		return mapper.findUser(id);
@@ -69,6 +86,15 @@ public class RootController {
 	@ApiOperation(
 			value="단일 회원의 주문 목록 조회",
 			notes="경로 변수로 주어진 사용자의 모든 주문 정보를 조회합니다.")
+	@ApiImplicitParam(
+            name = "id"
+            , value = "아이디"
+            , required = true
+            , dataType = "String"
+            , paramType = "path"
+            , defaultValue = ""
+        )
+	@GetMapping("/user/{id}/order")
 	public List<Order> findUserOrderList(@PathVariable String id) {
 		return mapper.findUserOrderList(id);
 	}
@@ -87,32 +113,37 @@ public class RootController {
 				        name = "page",
 				        value = "페이지",
 				        required = false,
-				        dataType = "int",
+				        dataType = "Integer",
 				        paramType = "query",
-				        defaultValue = "None"),
+				        defaultValue = "1"),
 				@ApiImplicitParam(
 				        name = "user_name",
 				        value = "사용자명",
 				        required = false,
-				        dataType = "string",
+				        dataType = "String",
 				        paramType = "query",
-				        defaultValue = "None"),
+				        defaultValue = ""),
 				@ApiImplicitParam(
 				        name = "email_addr",
 				        value = "이메일",
 				        required = false,
-				        dataType = "string",
+				        dataType = "String",
 				        paramType = "query",
-				        defaultValue = "None"),
+				        defaultValue = ""),
 			}
-			)
-	
+			)	
 	@GetMapping("/user")
-	public List<User> findUserList(@RequestParam Map<String, Object> params) {
+	public List<User> findUserList(
+			@RequestParam(name="page", required=false) Integer page,
+			@RequestParam(name="user_name", required=false) String user_name,
+			@RequestParam(name="email_addr", required=false) String email_addr)  {
+		
+		Map<String,Object> params = new HashMap<String,Object>();
+		params.put("user_name", user_name);
+		params.put("email_addr", email_addr);
 		
 		// 페이징 파라메터 설정
 		try {
-			int page = Integer.valueOf((String)params.get("page"));
 			if(page >= 1) {
 				params.put("start", (page-1) * PAGE_SIZE);
 			} else {
@@ -123,7 +154,7 @@ public class RootController {
 		}
 		
 		// 페이지 크기 설정
-		params.put("page_size", PAGE_SIZE);		
+		params.put("page_size", PAGE_SIZE);
 		
 		return mapper.findUserList(params);
 	}
