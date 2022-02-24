@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.jwkim.idus.dto.Order;
 import com.jwkim.idus.dto.User;
@@ -33,12 +34,11 @@ public class RootController {
 	static int PAGE_SIZE = 10;
 	
 	
-//	@GetMapping("/")
-//	public String baseDir() {
-//		
-//		
-//		return "Hello idus!!";
-//    }
+	@GetMapping("/")
+	public ModelAndView baseDir() {		
+		
+		return new ModelAndView("redirect:/swagger-ui.html");
+    }
 		
 	
 	@ApiOperation(value="회원 가입")
